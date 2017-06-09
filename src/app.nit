@@ -26,19 +26,6 @@ class APIHandler
 
 	redef type BODY: FactForm
 	redef var validator = new FactValidator
-
-	redef fun deserialize_body(req, res) do
-		var body = req.body
-		var deserializer = new JsonDeserializer(body)
-		var form = deserializer.deserialize("FactForm")
-		if not form isa BODY or deserializer.errors.not_empty then
-			print form or else "null"
-			print deserializer.errors
-			res.json_error("Bad input", 400)
-			return null
-		end
-		return form
-	end
 end
 
 class FactsHandler
